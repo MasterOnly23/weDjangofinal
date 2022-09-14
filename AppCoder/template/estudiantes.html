@@ -1,0 +1,18 @@
+{% extends "home.html" %}
+
+{% load static %}
+<!--link rel="stylesheet" href="{%static 'css/myestilo.css'%}"-->
+<!--link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}"-->
+{% block contenido %}
+    <p>Hola soy un estudiante...</p>
+    <div class="contenidoEstudiantes">
+        <form class="formDataEstudiantes">
+            <p>Nombre: <input type="text" ></p>
+            <input type="text" placeholder="Apellido">
+            <input type="password" placeholder="Password">
+            <input type="email" placeholder="email">
+            <button type="button" class="btn btn-primary btndj">Primary</button>
+        </form>
+        
+    </div>
+{% endblock %}
