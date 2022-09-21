@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+    <title>Curso - List</title>
+</head>
+<body>
+    <h1>Curso de Coder - Python</h1>
+    <ul>
+        {% for curso in object_list %}
+            <li>
+                <p>Nombre: {{ curso.nombre }}</p>
+                <p>
+                    <a class="btn btn-primary" href="{% url 'Detail' curso.id %}">Ver</a>
+                    <a class="btn btn-warning" href="{% url 'Edit' curso.id %}">Editar</a>
+                    <a class="btn btn-danger" href="{% url 'Delete' curso.id %}">Borrar</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+    <a class="btn btn-success" href="{% url 'New' %}"> + Nuevo</a>
+</body>
+</html>

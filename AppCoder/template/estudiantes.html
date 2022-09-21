@@ -6,13 +6,28 @@
 {% block contenido %}
     <p>Hola soy un estudiante...</p>
     <div class="contenidoEstudiantes">
-        <form class="formDataEstudiantes">
-            <p>Nombre: <input type="text" ></p>
-            <input type="text" placeholder="Apellido">
-            <input type="password" placeholder="Password">
-            <input type="email" placeholder="email">
-            <button type="button" class="btn btn-primary btndj">Primary</button>
+        <form class="formDataEstudiantes" action="/AppCoder/estudiantes/" method="POST"> {% csrf_token %}
+            <input type="text" name="nombre" placeholder="nombre">
+            <input type="text" name="apellido" placeholder="Apellido">
+            <input type="email" name="email" placeholder="email">
+            <button type="submit" class="btn btn-primary btndj">Registrar</button>
         </form>
-        
+    </div>
+    <div>
+        <form class="formDataEstudiantes" action="/AppCoder/buscar_estudiante/" method="GET">
+            <input type="email" name="email" placeholder="email">
+            <button type="submit" class="btn btn-primary btndj">Buscar</button>
+        </form>
+    </div>
+    <div>
+        {% if estudiantes %}
+        <ul>
+            {% for estudiante in estudiantes %}
+            <li>{{estudiante.nombre}}</li>
+            <li>{{estudiante.apellido}}</li>
+            <li>{{estudiante.email}}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
     </div>
 {% endblock %}
