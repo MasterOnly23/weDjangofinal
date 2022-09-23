@@ -1,11 +1,14 @@
+{% extends "../home.html" %}
 {% load static %}
-<link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
-{% for estudiante in estudiantes %}
-    <li>
-        {{ estudiante }}
-        <a href="/AppCoder/update_estudiantes/{{estudiante.id}}" class="btn btn-warning">Edit</a>
-        <a href="/AppCoder/delete_estudiantes/{{estudiante.id}}" class="btn btn-danger">Delete</a>
-    </li>
-    <br>
-{% endfor %}
-<a class="btn btn-success" href="/AppCoder/create_estudiantes">+ Agregar Estudiante</a>
+<!--link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}"-->
+{% block contenido %}
+    {% for estudiante in estudiantes %}
+        <li>
+            {{ estudiante }}
+            <a href="/AppCoder/update_estudiantes/{{estudiante.id}}" class="btn btn-warning">Edit</a>
+            <a href="/AppCoder/delete_estudiantes/{{estudiante.id}}" class="btn btn-danger">Delete</a>
+        </li>
+        <br>
+    {% endfor %}
+    <a class="btn btn-success" href="/AppCoder/create_estudiantes">+ Agregar Estudiante</a>
+{% endblock %}
