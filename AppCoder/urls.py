@@ -24,5 +24,8 @@ urlpatterns = [
     path(r'^borrar/(?P<pk>\d+)$',CursoDelete.as_view(),name="Delete"),
     path('login/', login_request),
     path('registro/', registro),
-    path('logout/', LogoutView.as_view(template_name = 'inicio.html'), name="Logout" )
+    path('logout/', LogoutView.as_view(template_name = 'inicio.html'), name="Logout" ),
+    path('perfil/', perfilView),
+    path('perfil/editarPerfil/', editarPerfil),
+    path('perfil/changepass/', changepass),
 ]

@@ -1,0 +1,15 @@
+{% extends "home.html" %}
+{% load static %}
+
+<link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
+{% block contenido %} 
+    <div style="position: relative; top: 80px">
+        <ul>
+            <li>{{ user.username }}</li>
+            <li>{{ user.email }}</li>
+            <li>{{ user.first_name }}</li>
+            <li>{{ user.last_name }}</li>
+        </ul>
+        <a class="btn btn-success" style="text-decoration: none; color: white" href="/AppCoder/perfil/editarPerfil">Editar Perfil</a>
+    </div>    
+{% endblock %}

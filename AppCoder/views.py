@@ -2,16 +2,17 @@ import email
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from AppCoder.models import Estudiante,Curso
-from AppCoder.forms import form_estudiantes, UserRegisterForm
+from AppCoder.forms import form_estudiantes, UserRegisterForm, UserEditForm, ChangePasswordForm
 
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -138,17 +139,57 @@ def login_request(request):
     return render(request, 'login.html', {'form': form})
 
 def registro(request):
+    form = UserRegisterForm(request.POST)
     if request.method == 'POST':
-        #form = UserCreationForm(request.POST)
-        form = UserRegisterForm(request.POST)
+        #form = UserCreationForm(request.POST)       
+        #print(form)# debugeee
         if form.is_valid():
             #username = form.cleaned_data["username"]
             form.save()
             return redirect("/AppCoder/login")
+        else:#decidi regresar el formulario con error
+            return render(request, "registro.html", {'form': form})
     #form = UserCreationForm()
-    else:
-        form = UserRegisterForm()
-        return render(request, "registro.html", {'form': form})
-        
 
-    
+    form = UserRegisterForm()
+    return render(request, "registro.html", {'form': form})
+
+@login_required
+def editarPerfil(request):
+    usuario = request.user
+    user_basic_info = User.objects.get(id = usuario.id)
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance = usuario)
+        if form.is_valid():
+            #Datos que se van a actualizar
+            user_basic_info.username = form.cleaned_data.get('username')
+            user_basic_info.email = form.cleaned_data.get('email')
+            user_basic_info.first_name = form.cleaned_data.get('first_name')
+            user_basic_info.last_name = form.cleaned_data.get('last_name')
+            user_basic_info.save()
+            return render(request, 'home.html')
+        else:
+            return render(request, 'home.html', {'form':form})
+    else:
+        form = UserEditForm(initial={'email': usuario.email, 'username': usuario.username, 'first_name': usuario.first_name, 'last_name': usuario.last_name })
+    return render(request, 'editarPerfil.html', {'form': form, 'usuario': usuario})
+
+@login_required
+def changepass(request):
+    usuario = request.user
+    if request.method == 'POST':
+        #form = PasswordChangeForm(data = request.POST, user = usuario)
+        form = ChangePasswordForm(data = request.POST, user = request.user)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return render(request, 'home.html')
+    else:
+        #form = PasswordChangeForm(request.user)
+        form = ChangePasswordForm(user = request.user)
+    return render(request, 'changepass.html', {'form': form, 'usuario': usuario})
+
+@login_required
+def perfilView(request):
+    return render(request, 'perfil.html')
+            
