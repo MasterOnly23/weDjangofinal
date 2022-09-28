@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-d%al-gqy#@nau!gi$k_4+&bo=__ta3!$%ucm$6vwa2hn7jshah
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -143,6 +143,7 @@ os.makedirs(STATIC_ROOT, exist_ok= True)
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
 #STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 #STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 #import dj_database_url
