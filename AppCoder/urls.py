@@ -28,4 +28,5 @@ urlpatterns = [
     path('perfil/', perfilView),
     path('perfil/editarPerfil/', editarPerfil),
     path('perfil/changepass/', changepass),
+    path('perfil/changeAvatar/', AgregarAvatar)
 ]
